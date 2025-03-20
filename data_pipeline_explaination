@@ -1,0 +1,161 @@
+Asha Jyothi Kapu
+Jyothikapu8247@gmail.com
++91 8247541359
+Hyderabad
+
+Task 3: Demonstrate data analytics pipeline with an example.
+Task Description: Data analytics pipeline involves data collection, cleaning, transformation and 
+Visualization.
+A data analytics pipeline is a series of processes that help convert raw data into meaningful insights. It typically includes data collection, data cleaning, data transformation, and data visualization.
+
+Example: Analyzing a Sample Salary Dataset
+The goal is to collect, clean, transform, and visualize the data.
+dataset `Salary.csv` with columns like YearsExpereince and Salary.
+YearsExperience	Salary
+1.1	39343
+1.3	46205
+1.5	37731
+2	43525
+2.2	39891
+2.9	56642
+3	
+3.2	54445
+3.2	64445
+3.7	57189
+3.9	63218
+4	55794
+4	56957
+4.1	
+4.5	61111
+4.9	67938
+5.1	66029
+5.3	83088
+5.9	81363
+6	93940
+6.8	91738
+7.1	98273
+7.9	
+8.2	113812
+8.7	109431
+9	105582
+9.5	116969
+9.6	112635
+10.3	122391
+10.5	121872
+
+
+Step1:
+-------
+we'll load the CSV into a DataFrame using `pandas`.
+import pandas as pd
+df=pd.read_csv(“Salary.csv”)
+#display dataset
+Print(df.head(5))
+Output:
+	YearsExperience	Salary
+0	1.1	39343.0
+1	1.3	46205.0
+2	1.5	37731.0
+3	2.0	43525.0
+4	2.2	39891.0
+
+
+Step 2: Data Cleaning
+-------------------------------
+Data cleaning is essential for handling missing or inconsistent values. In our case, let's perform some basic cleaning operations:
+- Check for missing values.
+- Remove any duplicate rows.
+# Check for missing values
+missing_data = df.isnull().sum()
+print("Missing Data:", missing_data)
+
+output: Missing Data: YearsExperience    0
+Salary             3
+dtype: int64
+
+# Drop any duplicates (if any)
+df = df.drop_duplicates()
+output:
+	YearsExperience	Salary
+0	1.1	39343.0
+1	1.3	46205.0
+2	1.5	37731.0
+3	2.0	43525.0
+4	2.2	39891.0
+5	2.9	56642.0
+6	3.0	NaN
+7	3.2	54445.0
+8	3.2	64445.0
+9	3.7	57189.0
+10	3.9	63218.0
+11	4.0	55794.0
+12	4.0	56957.0
+13	4.1	NaN
+14	4.5	61111.0
+15	4.9	67938.0
+16	5.1	66029.0
+17	5.3	83088.0
+18	5.9	81363.0
+19	6.0	93940.0
+20	6.8	91738.0
+21	7.1	98273.0
+22	7.9	NaN
+23	8.2	113812.0
+24	8.7	109431.0
+25	9.0	105582.0
+26	9.5	116969.0
+27	9.6	112635.0
+28	10.3	122391.0
+29	10.5	121872.0
+
+
+# Display the cleaned data
+print(df.info())
+output:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 30 entries, 0 to 29
+Data columns (total 2 columns):
+ #   Column           Non-Null Count  Dtype  
+---  ------           --------------  -----  
+ 0   YearsExperience  30 non-null     float64
+ 1   Salary           27 non-null     float64
+dtypes: float64(2)
+memory usage: 612.0 bytes
+
+Step 3: Data Transformation
+Data transformation includes reshaping, aggregating, or modifying the data to make it more suitable for analysis. For example, let's aggregate the data by `Product` to find out total sales and total quantity sold for each product.
+
+# Group data by Product and calculate total quantity and total amount
+aggregated_data = df.groupby('YearsExperience').agg(
+    total_amount=('Salary', 'sum')
+).reset_index()
+Print(aggregated_data.head(10))
+Output:
+	YearsExperience	total_amount
+0	1.1	39343.0
+1	1.3	46205.0
+2	1.5	37731.0
+3	2.0	43525.0
+4	2.2	39891.0
+5	2.9	56642.0
+6	3.0	0.0
+7	3.2	118890.0
+8	3.7	57189.0
+9	3.9	63218.0
+
+
+Step 4: Data Visualization
+Visualization helps in understanding the insights better by plotting charts. For example, we can create:
+1. A bar chart for YearsExperince and Salary
+import `matplotlib` and `seaborn` for plotting.
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set_style('whitegrid')
+plt.figure(figsize=(10, 6))
+sns.scatterplot(data=df, x='YearsExperience', y='Salary')
+plt.title('Scatter Plot of Years of Experience vs Salary')
+plt.xlabel('Years of Experience')
+plt.ylabel('Salary')
+plt.show()
+Conclusion:
+This example demonstrates the full data analytics pipeline, from DATA COLLECTION to DATA VISUALIZATION. Can convert raw data into meaningful insights that can help make informed business decisions.
